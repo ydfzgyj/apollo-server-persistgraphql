@@ -8,13 +8,17 @@
 
 GraphQL 能够让前端精准的获取所需的数据，但与此相伴的问题是需要在查询字符串中列出所有需要查询的字段，可能会导致查询请求过长，造成性能瓶颈。
 
-Apollo 为解决这一问题提出了 [PersistGraphQL](https://github.com/apollographql/persistgraphql) 这一方案，为查询分配 ID 或 Hash，使客户端发送查询时只需要发送对应的 ID/Hash，从而实现压缩查询字符串长度的目的。
+Apollo 为解决这一问题提出了 [PersistGraphQL](https://github.com/apollographql/persistgraphql) 这一方案，为查询分配 ID 或 Hash，使客户端发送查询时只需要发送对应的 ID / Hash，从而实现压缩查询字符串长度的目的。
 
 在 PersistGraphQL 的基础上，Apollo 又进一步推出了 [apollo-link-persisted-queries](https://github.com/apollographql/apollo-link-persisted-queries)，省去了 PersistGraphQL 的构建步骤，可以将服务端找不到的查询也动态的分配 Hash 值并加入到可用的查询列表中。但目前 apollo-link-persisted-queries 必须搭配 [Apollo Engine](https://www.apollographql.com/engine) 使用，而 Apollo Engine 被墙，在中国国内使用不便。
 
 本库的目的是让无法使用 Apollo Engine 的用户也能够获得 GraphQL 持久化查询带来的好处，用户只需要对使用了 Apollo Server 的代码稍做修改即可。
 
-**注意：目前本库只支持 Apollo Server v1.x + Express/Koa 框架。**
+## 兼容性
+
+- `Apollo Server`: v1.x
+- `Node.js 框架`: Express / Koa
+- `可手动加入白名单的文件格式`: .graphql / .json（使用 [PersistGraphQL](https://github.com/apollographql/persistgraphql) 构建）
 
 ## 安装
 
@@ -92,7 +96,10 @@ app.listen({ port: 3000 })
 // 加入一个 .graphql 查询
 persistedGraphQL.addQueryFiles(process.cwd() + '/test/test.graphql')
 
-// 加入一个文件夹下的所有 .graphql 查询
+// 加入用 PersistGraphQL 构建出的 .json 文件
+persistedGraphQL.addQueryFiles(process.cwd() + '/test/extracted_queries.json')
+
+// 加入一个文件夹下的所有 .graphql 查询和 .json 文件
 persistedGraphQL.addQueryFiles(process.cwd() + '/test/')
 ```
 
