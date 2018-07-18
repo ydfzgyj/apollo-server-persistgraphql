@@ -1,5 +1,9 @@
 # 在 Apollo Server 中直接使用持久化查询
 
+[![npm](https://img.shields.io/npm/v/apollo-server-persistgraphql.svg)](https://www.npmjs.com/package/apollo-server-persistgraphql)
+![travis](https://img.shields.io/travis/ydfzgyj/apollo-server-persistgraphql.svg)
+![coverage](https://img.shields.io/coveralls/github/ydfzgyj/apollo-server-persistgraphql.svg)
+
 ## 概述
 
 GraphQL 能够让前端精准的获取所需的数据，但与此相伴的问题是需要在查询字符串中列出所有需要查询的字段，可能会导致查询请求过长，造成性能瓶颈。
